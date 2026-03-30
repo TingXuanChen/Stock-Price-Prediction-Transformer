@@ -1,12 +1,3 @@
-# Stock-Price-Prediction-Transformer
-<div align="right">
-  <strong>[ 🇹🇼 繁體中文 ](#-繁體中文) | [ 🇺🇸 English ](#-english-version)</strong>
-</div>
-
----
-
-# 🇹🇼 繁體中文
-
 ##  2330.TW Stock Prediction: From LSTM to Transformer
 本專案實作了一個基於 **Transformer (Encoder-Decoder)** 架構的台積電 (2330.TW) 股價預測模型。有別於傳統的 RNN/LSTM 模型，本專案透過 Self-Attention 機制捕捉時序資料中的長距離依賴關係，並針對滑動視窗預測加入了獨創的資料處理與還原演算法。
 
@@ -73,5 +64,5 @@ The foundational data fetching and time-series preprocessing logic were inspired
 1. Place the `2330.TW.csv` file into the `data/` directory.
 2. Execute `python main.py`. The best model weights will be saved in the `save_model/` directory.
 
-### 備註 (Note)
+###  Note
  This `README.md` documentation was structured and refined with the assistance of AI. If you have any questions, suggestions, or spot any potential improvements regarding the code logic or descriptions, please feel free to open an [Issue] or submit a [Pull Request]!
