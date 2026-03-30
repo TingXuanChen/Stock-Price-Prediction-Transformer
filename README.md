@@ -8,7 +8,7 @@
 1. **模型架構升級**：將原本的 LSTM 替換為 Transformer (Encoder-Decoder)。
 2. **資料預處理優化**：重新設計資料切割邏輯，引入「重疊預測視窗」。
 3. **預測機制**：實作了 **Autoregressive (自回歸)** 預測，確保驗證集與測試集絕對不會接觸到未來資訊。
-4. **後處理演算法**：針對滑動視窗產生的重疊預測，開發了 **Stuck Average** 演算法，將碎片化的預測還原為連續時序。
+4. **後處理演算法**：針對滑動視窗產生的重疊預測，開發了 **Stack Average** 演算法，將碎片化的預測還原為連續時序。
 
 ###  資料處理策略 (Data Strategy)
 1. **數據分割**：訓練集 (70%)、驗證集 (20%)、測試集 (10%)。滑動視窗以過去 20 天預測未來 5 天。
@@ -20,7 +20,7 @@
 
 ###  訓練與測試流程
 1. **自回歸預測 (Autoregressive Prediction)**：採取「一次生成一天」的策略，將前一天的預測值拼接回 Input，直到完成 5 天的預測。
-2. **Stuck Average (預測還原演算法)**：收集時間軸上每個點的所有預測片段，根據重疊次數進行加權平均，將零散的 Sequence 恢復為連續的股價趨勢線。
+2. **Stack Average (預測還原演算法)**：收集時間軸上每個點的所有預測片段，根據重疊次數進行加權平均，將零散的 Sequence 恢復為連續的股價趨勢線。
 
 ###  如何執行 (How to run)
 1. 將 `2330.TW.csv` 放入 `data/` 資料夾。
@@ -46,7 +46,7 @@ The foundational data fetching and time-series preprocessing logic were inspired
 1. **Architecture Upgrade**: Replaced the original LSTM with a full Transformer (Encoder-Decoder) model.
 2. **Data Preprocessing Optimization**: Redesigned the data splitting logic by introducing an "Overlapping Prediction Window."
 3. **Inference Mechanism**: Implemented **Autoregressive** generation to ensure validation and test sets never access future data points.
-4. **Post-processing Algorithm**: Developed a novel **Stuck Average** algorithm to reconstruct continuous time series from overlapping sliding window predictions.
+4. **Post-processing Algorithm**: Developed a novel **Stack Average** algorithm to reconstruct continuous time series from overlapping sliding window predictions.
 
 ###  Data Strategy
 1. **Data Split**: Training (70%), Validation (20%), Testing (10%). The sliding window uses the past 20 days to predict the next 5 days.
@@ -58,7 +58,7 @@ The foundational data fetching and time-series preprocessing logic were inspired
 
 ###  Training & Evaluation
 1. **Autoregressive Prediction**: During evaluation, the model generates one day at a time. The predicted output is concatenated back into the input sequence iteratively until the 5-day forecast window is fulfilled.
-2. **Sequence Reconstruction (Stuck Average)**: Since the sliding window approach generates multiple predictions for the same date, this algorithm collects all overlapping prediction fragments for each timestamp and calculates a weighted average, restoring a continuous and coherent stock price trend line.
+2. **Sequence Reconstruction (Stack Average)**: Since the sliding window approach generates multiple predictions for the same date, this algorithm collects all overlapping prediction fragments for each timestamp and calculates a weighted average, restoring a continuous and coherent stock price trend line.
 
 ###  How to Run
 1. Place the `2330.TW.csv` file into the `data/` directory.
